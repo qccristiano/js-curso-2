@@ -4,7 +4,6 @@ class Node:
         self.next = None
         self.prev = None
 
-
 class Fila:
     def __init__(self):
         self.head = None
@@ -47,7 +46,6 @@ class Fila:
             p = p.next
         return s.strip()
 
-
 class Pilha:
     def __init__(self):
         self.head = None
@@ -67,10 +65,8 @@ class Pilha:
         self.size -= 1
         return removed_node
     
-
     def esta_vazio(self):
         return self.size == 0
-
 
 def verifica_palindromo(palavra):
     fila = Fila()
@@ -86,9 +82,7 @@ def verifica_palindromo(palavra):
 
         if char_fila != char_pilha:
             return False
-
     return True
-
 
 def main():
     print('Você deseja saber se a palavra que você digitar é um palíndromo? Se quiser sair do programa digite sair')
@@ -100,7 +94,6 @@ def main():
             print(f"A palavra '{palavra}' é um palíndromo.")
         else:
             print(f"A palavra '{palavra}' não é um palíndromo.")
-
 
 if __name__ == '__main__':
     main()
