@@ -1,0 +1,106 @@
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+        self.prev = None
+
+
+class Fila:
+    def __init__(self):
+        self.head = None
+        self.tail = None
+        self.size = 0
+
+    def enfileirar(self, elem):
+        node = Node(elem)
+        if self.tail is None:
+            self.tail = self.head = node
+        else:
+            self.tail.next = node
+            node.prev = self.tail
+            self.tail = node
+        self.size += 1
+
+    def esta_vazio(self):
+        return self.size == 0
+
+    def desenfileirar(self):
+        if self.esta_vazio():
+            return 'Fila vazia'
+        else:
+            removed_node = self.head
+            if self.head == self.tail:
+                self.head = self.tail = None
+            else:
+                self.head = self.head.next
+                self.head.prev = None
+            self.size -= 1
+            return removed_node.data
+
+    def __repr__(self):
+        if self.esta_vazio():
+            return 'Fila vazia'
+        p = self.head
+        s = ''
+        while p:
+            s += str(p.data) + ' '
+            p = p.next
+        return s.strip()
+
+
+class Pilha:
+    def __init__(self):
+        self.head = None
+        self.size = 0
+
+    def empilhar(self, elem):
+        node = Node(elem)
+        node.next = self.head
+        self.head = node
+        self.size += 1
+
+    def desempilhar(self):
+        if self.head is None:
+            return 'Pilha vazia'
+        removed_node = self.head.data
+        self.head = self.head.next
+        self.size -= 1
+        return removed_node
+    
+
+    def esta_vazio(self):
+        return self.size == 0
+
+
+def verifica_palindromo(palavra):
+    fila = Fila()
+    pilha = Pilha()
+
+    for char in palavra:
+        fila.enfileirar(char)
+        pilha.empilhar(char)
+
+    while not fila.esta_vazio() and not pilha.esta_vazio():
+        char_fila = fila.desenfileirar()
+        char_pilha = pilha.desempilhar()
+
+        if char_fila != char_pilha:
+            return False
+
+    return True
+
+
+def main():
+    print('Você deseja saber se a palavra que você digitar é um palíndromo? Se quiser sair do programa digite sair')
+    while True:
+        palavra = input('Digite a palavra: ')
+        if palavra.lower() == 'sair':
+            break
+        if verifica_palindromo(palavra):
+            print(f"A palavra '{palavra}' é um palíndromo.")
+        else:
+            print(f"A palavra '{palavra}' não é um palíndromo.")
+
+
+if __name__ == '__main__':
+    main()
